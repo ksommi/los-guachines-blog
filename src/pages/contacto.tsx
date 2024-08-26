@@ -13,40 +13,37 @@ const contacts = [
   {
     Comp: Twitter,
     alt: 'twitter icon',
-    link: 'https://twitter.com/_ijjk',
+    link: 'https://x.com/KeevCavs',
   },
   {
     Comp: GitHub,
     alt: 'github icon',
-    link: 'https://github.com/ijjk',
+    link: 'https://github.com/ksommi',
   },
-  {
+  /* {
     Comp: LinkedIn,
     alt: 'linkedin icon',
     link: 'https://www.linkedin.com/in/jj-kasper-0b5392166/',
-  },
+  }, */
   {
     Comp: Envelope,
     alt: 'envelope icon',
-    link: 'mailto:jj@jjsweb.site?subject=Notion Blog',
+    link: 'mailto:ksommi@gmail.com?subject=Los Guachines Blog',
   },
 ]
 
 export default function Contact() {
   return (
     <>
-      <Header titlePre="Contact" />
+      <Header titlePre="Contacto" />
       <div className={sharedStyles.layout}>
-        <div className={contactStyles.avatar}>
+        {/* <div className={contactStyles.avatar}>
           <img src="/avatar.png" alt="avatar with letters JJ" height={60} />
-        </div>
+        </div> */}
 
-        <h1 style={{ marginTop: 0 }}>Contact</h1>
+        <h1 style={{ marginTop: 0 }}>Contacto</h1>
 
-        <div className={contactStyles.name}>
-          JJ Kasper - Next.js Engineer @{' '}
-          <ExtLink href="https://vercel.com">Vercel</ExtLink>
-        </div>
+        <div className={contactStyles.name}>Kevin Sommi - Developer</div>
 
         <div className={contactStyles.links}>
           {contacts.map(({ Comp, link, alt }) => {
