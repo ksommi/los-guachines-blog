@@ -4,7 +4,7 @@ import SanVelicina from '../../public/teams/San Velicina.png'
 import Masantonio from '../../public/teams/Masantonio.png'
 import Bochini from '../../public/teams/Bochini.png'
 import Titanes from '../../public/teams/Titanes.png'
-import Virrey from '../../public/teams/Virrey.png'
+import Virrey from '../../public/teams/Virrey.PNG'
 import Texas from '../../public/teams/Texas.png'
 import Image from 'next/image'
 
