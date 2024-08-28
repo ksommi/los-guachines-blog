@@ -43,10 +43,10 @@ const features = [
   },
 ]
 
-const Teams = () => (
-  <div className="features">
+const Teams = ({ full }) => (
+  <div className={`features ${full ? 'full' : ''}`}>
     {features.map(({ text, icon: Icon }) => (
-      <div className="feature" key={text}>
+      <div className={`feature ${full ? '' : ''}`} key={text}>
         {Icon && <Image height={24} width={24} src={Icon} />}
         <h4>{text}</h4>
       </div>
