@@ -17,7 +17,7 @@ export default function Index() {
         <h1>Liga Los Guachines</h1>
         <h2>Enterate acá de todas las novedades</h2>
 
-        <Teams />
+        <Teams full={false} />
 
         <div className="explanation">
           <p>
