@@ -206,12 +206,8 @@ pre.dark[class*='language-'] {
   max-width: calc(100vw - var(--gap-double));
 }
 
-.features.full {
-  flex-direction: column;
-}
-
 .feature {
-  flex: 0 0 25%;
+  flex: 0 0 33%;
   align-items: center;
   display: inline-flex;
   padding: 0 0.5rem 1.5rem;

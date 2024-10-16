@@ -42,6 +42,9 @@ if (!BLOG_INDEX_ID) {
 }
 
 module.exports = {
+  images: {
+    domains: ['prod-files-secure.s3.us-west-2.amazonaws.com'],
+  },
   webpack(cfg, { dev, isServer }) {
     // only compile build-rss in production server build
     if (dev || !isServer) return cfg

@@ -3,11 +3,14 @@ import ExtLink from '../../components/ext-link'
 import Teams from '../../components/teams'
 import sharedStyles from '../../styles/shared.module.css'
 import getAllTeams from '../../lib/notion2/getAllTeams'
-import { teams } from '../../lib/notion2/teamQuery'
+import { queryTeams } from '../../lib/notion2/teamQuery'
+import Image from 'next/image'
 
 export const getStaticProps = async () => {
   var equipos = await getAllTeams()
   var teams = await equipos.results
+  // ESTE ES PARA LOCAL
+  /* var teams = await queryTeams.results */
   return { props: { teams } }
 }
 
@@ -40,6 +43,7 @@ export default function Index({ teams = [] }) {
             </thead>
             <tbody>
               {teams.map((equipo, index) => {
+                const icono = equipo.icon.file.url || ''
                 const nombre =
                   equipo.properties.Nombre.title[0]?.plain_text || 'Sin Nombre'
                 const jugados = equipo.properties.Jugados.formula.number || 0
@@ -58,7 +62,12 @@ export default function Index({ teams = [] }) {
                 return (
                   <tr key={index}>
                     <td>{index + 1}</td>
-                    <td>{nombre}</td>
+                    <td>
+                      <div style={{ display: 'flex', alignItems: 'center' }}>
+                        {icono && <Image src={icono} height={24} width={24} />}
+                        <span style={{ marginLeft: '8px' }}>{nombre}</span>
+                      </div>
+                    </td>
                     <td>{ptsTotal}</td>
                     <td>{jugados}</td>
                     <td>{ganado}</td>

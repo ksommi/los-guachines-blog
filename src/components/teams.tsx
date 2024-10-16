@@ -6,6 +6,7 @@ import Bochini from '../../public/teams/Bochini/escudo.png'
 import Titanes from '../../public/teams/Titanes/escudo.png'
 import Virrey from '../../public/teams/Virrey/escudo.png'
 import Texas from '../../public/teams/Texas/escudo.png'
+import DeportivoCifa from '../../public/teams/Deportivo Cifa/escudo.png'
 import Image from 'next/image'
 
 const features = [
@@ -41,14 +42,25 @@ const features = [
     text: 'Texas FC',
     icon: Texas,
   },
+  {
+    text: 'Deportivo Cifa',
+    icon: DeportivoCifa,
+  },
 ]
 
 const Teams = ({ full }) => (
   <div className={`features ${full ? 'full' : ''}`}>
     {features.map(({ text, icon: Icon }) => (
-      <div className={`feature ${full ? '' : ''}`} key={text}>
-        {Icon && <Image height={24} width={24} src={Icon} />}
-        <h4>{text}</h4>
+      <div className={`feature ${full ? 'full' : ''}`} key={text}>
+        {Icon && (
+          <Image
+            height={`${full ? '64' : '24'}`}
+            width={`${full ? '64' : '24'}`}
+            src={Icon}
+          />
+        )}
+
+        {full ? <h3>{text}</h3> : <h4>{text}</h4>}
       </div>
     ))}
   </div>
