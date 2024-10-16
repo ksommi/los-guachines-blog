@@ -5,32 +5,20 @@ const notion = new Client({ auth: API_TOKEN })
 
 export default async function getAllTeams() {
   const databaseId = TEAM_INDEX_ID
-  const response = await notion.databases.query({
-    database_id: databaseId,
-    filter: {
-      or: [
+  try {
+    const response = await notion.databases.query({
+      database_id: databaseId,
+      sorts: [
         {
-          property: 'In stock',
-          checkbox: {
-            equals: true,
-          },
-        },
-        {
-          property: 'Cost of next trip',
-          number: {
-            greater_than_or_equal_to: 2,
-          },
+          property: 'Pts Total',
+          direction: 'descending',
         },
       ],
-    },
-    sorts: [
-      {
-        property: 'Last ordered',
-        direction: 'ascending',
-      },
-    ],
-  })
-  console.log(response)
+    })
+    return response
+  } catch (error) {
+    console.log('falló')
+  }
 }
 /* async function getAllTeams() {
     

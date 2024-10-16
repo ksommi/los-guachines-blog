@@ -386,3 +386,15 @@ footer span {
 footer span a {
   color: inherit;
 }
+
+.tablaPosiciones {
+  border-radius: 100%;
+}
+
+.tablaPosiciones tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.tablaPosiciones thead {
+  background-color: #f2f2f2;
+}
