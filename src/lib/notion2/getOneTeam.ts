@@ -3,17 +3,17 @@ const { Client } = require('@notionhq/client')
 
 const notion = new Client({ auth: API_TOKEN })
 
-export default async function getAllTeams() {
+export default async function getOneTeam(slug: string) {
   const databaseId = TEAM_INDEX_ID
   try {
     const response = await notion.databases.query({
       database_id: databaseId,
-      sorts: [
-        {
-          property: 'Pts Total',
-          direction: 'descending',
+      filter: {
+        property: 'slug',
+        rich_text: {
+          equals: slug,
         },
-      ],
+      },
     })
     return response
   } catch (error) {

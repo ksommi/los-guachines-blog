@@ -17,7 +17,7 @@ export const getStaticProps = async () => {
 export default function Index({ teams = [] }) {
   return (
     <>
-      <Header titlePre="Home" />
+      <Header titlePre="Inicio" />
       <div className={sharedStyles.layout}>
         <Teams full={true} />
         {teams && (
@@ -43,7 +43,7 @@ export default function Index({ teams = [] }) {
             </thead>
             <tbody>
               {teams.map((equipo, index) => {
-                const icono = equipo.icon.file.url || ''
+                const icono = equipo.icon.file?.url || ''
                 const nombre =
                   equipo.properties.Nombre.title[0]?.plain_text || 'Sin Nombre'
                 const jugados = equipo.properties.Jugados.formula.number || 0

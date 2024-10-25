@@ -9,3 +9,7 @@
 .layout h2 {
   text-align: center;
 }
+
+.layout {
+  padding: 8px 0.75rem;
+}
