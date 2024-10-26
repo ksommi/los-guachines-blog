@@ -5,6 +5,7 @@ import sharedStyles from '../../styles/shared.module.css'
 import getAllTeams from '../../lib/notion2/getAllTeams'
 import Image from 'next/image'
 import Loading from '../../components/loading'
+import defaultIcon from '../../../public/generic-shield.png'
 
 export const getStaticProps = async () => {
   var equipos = await getAllTeams()
@@ -48,7 +49,7 @@ export default function Index({ teams = [] }) {
               </thead>
               <tbody>
                 {teams.map((equipo, index) => {
-                  const icono = equipo.icon.file?.url || ''
+                  const icono = equipo.icon.file?.url || defaultIcon
                   const nombre =
                     equipo.properties.Nombre.title[0]?.plain_text ||
                     'Sin Nombre'

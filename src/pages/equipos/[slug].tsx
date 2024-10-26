@@ -9,13 +9,16 @@ import Image from 'next/image'
 import getPlayersClub from '../../lib/notion2/getPlayersClub'
 import defaultProfile from '../../../public/generic-icon.png'
 import Loading from '../../components/loading'
+import getFixtureClub from '../../lib/notion2/getFixtureClub'
 
 export const getStaticProps = async ({ params }) => {
   const { slug } = params
   var equipos = await getOneTeam(slug)
-  var team = await equipos.results[0]
+  var team = equipos.results[0]
   var jugadores = await getPlayersClub(team.id)
-  var players = await jugadores.results
+  var players = jugadores.results
+  /* var partidos = await getFixtureClub(team.id)
+  var fixture = partidos.results */
   return { props: { team, players } }
 }
 
@@ -52,7 +55,11 @@ const RenderTeam = ({ team, players }) => {
   const empatado = team?.properties.Empatado.formula.number || 0
   const diferenciaGoles = team?.properties['GD Total'].formula.number || 0
 
-  console.log(historia)
+  const formattedFundacion = new Intl.DateTimeFormat('es-ES', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+  }).format(new Date(`${fundacion}T00:00:00`))
 
   return (
     <div>
@@ -79,7 +86,7 @@ const RenderTeam = ({ team, players }) => {
                   <strong>Presidente:</strong> {presidente}
                 </li>
                 <li>
-                  <strong>Fundación:</strong> {fundacion}
+                  <strong>Fundación:</strong> {formattedFundacion}
                 </li>
                 <li>
                   <strong>Estadio Local:</strong> {estadio}

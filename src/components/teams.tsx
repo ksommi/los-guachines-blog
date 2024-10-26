@@ -1,11 +1,12 @@
 import Image from 'next/image'
 import Link from 'next/link'
+import defaultIcon from '../../public/generic-shield.png'
 
 const Teams = ({ teams, full }) => (
   <div className={`teams ${full ? 'full' : ''}`}>
     {teams.map((equipo, index) => {
       const teamName = equipo.properties.Nombre.title[0].text.content // Ajusta según la estructura de tu API
-      const icon = equipo.icon.file?.url
+      const icon = equipo.icon.file?.url || defaultIcon
       const slug = equipo.properties.slug.rich_text[0].text.content
       return (
         <Link href={`/equipos/${slug}`}>
