@@ -2,22 +2,35 @@ import Header from '../components/header'
 import ExtLink from '../components/ext-link'
 import Teams from '../components/teams'
 import sharedStyles from '../styles/shared.module.css'
+import poster from '../../public/poster.jpeg'
+import Image from 'next/image'
 
 export default function Index() {
   return (
     <>
       <Header titlePre="Home" />
       <div className={sharedStyles.layout}>
-        <img
-          src="/los-guachines-logo.png"
-          height="85"
-          width="250"
-          alt="Vercel + Notion"
-        />
+        <div
+          style={{
+            width: '500px',
+            height: '500px',
+            position: 'relative',
+            overflow: 'hidden',
+            margin: '0 auto',
+          }}
+        >
+          <Image
+            src={poster}
+            layout="fill" // Para que la imagen llene el contenedor
+            objectFit="cover" // Ajusta la imagen para que cubra todo el contenedor
+            objectPosition="center" // Centra la imagen
+            alt="Poster de la liga"
+          />
+        </div>
         <h1>Liga Los Guachines</h1>
         <h2>Enterate acá de todas las novedades</h2>
 
-        <Teams full={false} />
+        {/* <Teams full={false} /> */}
 
         <div className="explanation">
           <p>

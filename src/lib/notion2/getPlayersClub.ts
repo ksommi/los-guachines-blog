@@ -14,6 +14,16 @@ export default async function getPlayersClub(clubId: string) {
           contains: clubId,
         },
       },
+      sorts: [
+        {
+          property: 'Posicion',
+          direction: 'descending',
+        },
+        {
+          property: 'G+A',
+          direction: 'descending',
+        },
+      ],
     })
     return response
   } catch (error) {

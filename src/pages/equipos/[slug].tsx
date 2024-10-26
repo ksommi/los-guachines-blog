@@ -7,6 +7,8 @@ import sharedStyles from '../../styles/shared.module.css'
 import teamStyles from '../../styles/team.module.css'
 import Image from 'next/image'
 import getPlayersClub from '../../lib/notion2/getPlayersClub'
+import defaultProfile from '../../../public/generic-icon.png'
+import Loading from '../../components/loading'
 
 export const getStaticProps = async ({ params }) => {
   const { slug } = params
@@ -27,17 +29,20 @@ export async function getStaticPaths() {
 }
 
 const RenderTeam = ({ team, players }) => {
-  console.log(team)
-  console.log(players)
+  if (!team) {
+    return <Loading />
+  }
+  //console.log(team)
+  //console.log(players)
 
   const icono = team?.icon.file?.url || ''
   const nombre = team?.properties.Nombre.title[0]?.plain_text || ''
-  const presidente = team?.properties.Presidente.rich_text[0].plain_text || ''
-  const historia = team?.properties.Historia.rich_text[0].plain_text || ''
-  const ubicacion = team?.properties.Ubicacion.rich_text[0].plain_text || ''
+  const presidente = team?.properties.Presidente.rich_text[0]?.plain_text || ''
+  const historia = team?.properties.Historia.rich_text[0]?.plain_text || ''
+  const ubicacion = team?.properties.Ubicacion?.rich_text[0]?.plain_text || ''
   const fundacion = team?.properties.Fundacion.date.start || ''
   const estadio =
-    team?.properties['Estadio Local'].rich_text[0].plain_text || ''
+    team?.properties['Estadio Local'].rich_text[0]?.plain_text || ''
   const jugados = team?.properties.Jugados.formula.number || 0
   const gfTotal = team?.properties['GF Total'].formula.number || 0
   const gcTotal = team?.properties['GC Total'].formula.number || 0
@@ -46,6 +51,8 @@ const RenderTeam = ({ team, players }) => {
   const perdido = team?.properties.Perdido.formula.number || 0
   const empatado = team?.properties.Empatado.formula.number || 0
   const diferenciaGoles = team?.properties['GD Total'].formula.number || 0
+
+  console.log(historia)
 
   return (
     <div>
@@ -89,33 +96,54 @@ const RenderTeam = ({ team, players }) => {
             </div>
 
             {players && (
-              <table className={teamStyles.playersList}>
-                <thead>
-                  <tr>
-                    <th>Nombre</th>
-                    <th>Posición</th>
-                    <th>Nacionalidad</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {players.map((player, index) => {
-                    const nombreJugador =
-                      player.properties.Nombre.title[0]?.plain_text ||
-                      'Sin Nombre'
-                    const posicionJugador =
-                      player.properties.Posicion.select.name || ''
-                    const nacionalidadJugador =
-                      player.properties.Nacionalidad.select.name || ''
-                    return (
-                      <tr key={index}>
-                        <td>{nombreJugador}</td>
-                        <td>{posicionJugador}</td>
-                        <td>{nacionalidadJugador}</td>
-                      </tr>
-                    )
-                  })}
-                </tbody>
-              </table>
+              <div className={teamStyles.playersList}>
+                <h2>Plantel</h2>
+                {players.map((player, index) => {
+                  const nombreJugador =
+                    player.properties.Nombre.title[0]?.plain_text ||
+                    'Sin Nombre'
+                  const posicionJugador =
+                    player.properties.Posicion.select?.name
+                      .slice(0, 3)
+                      .toUpperCase() || ''
+                  const colorPosicionClass = `position-${
+                    player.properties.Posicion.select?.color || 'green'
+                  }`
+                  const nacionalidadJugador =
+                    player.properties.Nacionalidad.select?.name || ''
+                  const iconoJugador = player.icon?.file?.url || defaultProfile
+                  return (
+                    <div key={index} className={teamStyles.cardPlayer}>
+                      <div className={teamStyles.iconPlayer}>
+                        <Image
+                          src={iconoJugador}
+                          alt={`Icono de ${nombreJugador}`}
+                          width={64}
+                          height={64}
+                          className={teamStyles.profilePlayer}
+                        />
+                      </div>
+                      <div className={teamStyles.infoPlayer}>
+                        <span className={teamStyles.namePlayer}>
+                          {nombreJugador}
+                        </span>
+                        <span className={teamStyles.nationalityPlayer}>
+                          {nacionalidadJugador}
+                        </span>
+                      </div>
+                      <div
+                        className={
+                          teamStyles.positionPlayer +
+                          ' ' +
+                          teamStyles[colorPosicionClass]
+                        }
+                      >
+                        {posicionJugador}
+                      </div>
+                    </div>
+                  )
+                })}
+              </div>
             )}
           </>
         )}
