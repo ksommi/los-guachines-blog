@@ -48,7 +48,7 @@ const RenderTeam = ({ team, players }) => {
   const presidente = team?.properties.Presidente.rich_text[0]?.plain_text || ''
   const historia = team?.properties.Historia.rich_text[0]?.plain_text || ''
   const ubicacion = team?.properties.Ubicacion?.rich_text[0]?.plain_text || ''
-  const fundacion = team?.properties.Fundacion.date.start || ''
+  const fundacion = team?.properties.Fundacion?.date?.start || ''
   const estadio =
     team?.properties['Estadio Local'].rich_text[0]?.plain_text || ''
   const jugados = team?.properties.Jugados.formula.number || 0
@@ -77,13 +77,16 @@ const RenderTeam = ({ team, players }) => {
             <div></div>
             <div className={teamStyles.info}>
               <div className={teamStyles.header}>
-                <Image
-                  src={icono}
-                  alt="Escudo del Club"
-                  className={teamStyles.escudo}
-                  width={64}
-                  height={64}
-                />
+                {icono.length && (
+                  <Image
+                    src={icono}
+                    alt="Escudo del Club"
+                    className={teamStyles.escudo}
+                    width={64}
+                    height={64}
+                  />
+                )}
+
                 <h1 className={teamStyles.nombre}>{nombre}</h1>
               </div>
               <ul className={teamStyles.details}>
