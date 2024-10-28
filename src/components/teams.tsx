@@ -9,8 +9,8 @@ const Teams = ({ teams, full }) => (
       const icon = equipo.icon.file?.url || defaultIcon
       const slug = equipo.properties.slug.rich_text[0].text.content
       return (
-        <Link href={`/equipos/${slug}`}>
-          <a className={`team ${full ? 'full' : ''}`} key={teamName}>
+        <Link href={`/equipos/${slug}`} key={teamName}>
+          <a className={`team ${full ? 'full' : ''}`}>
             {icon && (
               <Image
                 height={`${full ? '64' : '24'}`}

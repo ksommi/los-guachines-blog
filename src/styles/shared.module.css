@@ -14,3 +14,19 @@
 .layout {
   padding: 8px 0.75rem;
 }
+
+.gridResponsive {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: 1fr;
+}
+
+.tableContainer {
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  .gridResponsive {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

@@ -26,7 +26,12 @@ export async function getStaticPaths() {
   const allTeams = await getAllTeams()
   const teams = allTeams.results
   return {
-    paths: Object.keys(teams).map((slug) => `/equipos/${slug}`),
+    paths: teams.map((team, index) => {
+      const slug = team?.properties.slug?.rich_text[0]?.plain_text
+      console.log(slug)
+
+      return `/equipos/${slug}`
+    }),
     fallback: true,
   }
 }
