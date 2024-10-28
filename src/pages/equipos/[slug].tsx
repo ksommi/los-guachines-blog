@@ -19,7 +19,7 @@ export const getStaticProps = async ({ params }) => {
   var players = jugadores.results
   /* var partidos = await getFixtureClub(team.id)
   var fixture = partidos.results */
-  return { props: { team, players } }
+  return { props: { team, players }, revalidate: 7200 }
 }
 
 export async function getStaticPaths() {

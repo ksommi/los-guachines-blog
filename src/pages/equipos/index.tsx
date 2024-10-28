@@ -11,7 +11,7 @@ export const getStaticProps = async () => {
   var equipos = await getAllTeams()
   var teams = equipos.results
 
-  return { props: { teams } }
+  return { props: { teams }, revalidate: 60 }
 }
 
 export default function Index({ teams = [] }) {
