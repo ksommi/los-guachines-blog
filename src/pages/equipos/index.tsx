@@ -4,7 +4,8 @@ import Teams from '../../components/teams'
 import sharedStyles from '../../styles/shared.module.css'
 import getAllTeams from '../../lib/notion2/getAllTeams'
 import Image from 'next/image'
-import Loading from '../../components/loading'
+import Spinner from '../components/spinner'
+
 import defaultIcon from '../../../public/generic-shield.png'
 
 export const getStaticProps = async () => {

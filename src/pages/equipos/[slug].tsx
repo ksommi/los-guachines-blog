@@ -8,7 +8,7 @@ import teamStyles from '../../styles/team.module.css'
 import Image from 'next/image'
 import getPlayersClub from '../../lib/notion2/getPlayersClub'
 import defaultProfile from '../../../public/generic-icon.png'
-import Loading from '../../components/loading'
+
 import getFixtureClub from '../../lib/notion2/getFixtureClub'
 
 export const getStaticProps = async ({ params }) => {
@@ -37,9 +37,6 @@ export async function getStaticPaths() {
 }
 
 const RenderTeam = ({ team, players }) => {
-  if (!team) {
-    return <Loading />
-  }
   //console.log(team)
   //console.log(players)
 
