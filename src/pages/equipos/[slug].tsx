@@ -56,12 +56,14 @@ const RenderTeam = ({ team, players }) => {
   const perdido = team?.properties.Perdido.formula.number || 0
   const empatado = team?.properties.Empatado.formula.number || 0
   const diferenciaGoles = team?.properties['GD Total'].formula.number || 0
-
-  const formattedFundacion = new Intl.DateTimeFormat('es-ES', {
-    day: 'numeric',
-    month: 'long',
-    year: 'numeric',
-  }).format(new Date(`${fundacion}T00:00:00`))
+  var fechaFormateada = ''
+  if (team) {
+    fechaFormateada = new Intl.DateTimeFormat('es-ES', {
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric',
+    }).format(new Date(`${fundacion}T00:00:00`))
+  }
 
   return (
     <div>
@@ -91,7 +93,7 @@ const RenderTeam = ({ team, players }) => {
                   <strong>Presidente:</strong> {presidente}
                 </li>
                 <li>
-                  <strong>Fundación:</strong> {formattedFundacion}
+                  <strong>Fundación:</strong> {fechaFormateada}
                 </li>
                 <li>
                   <strong>Estadio Local:</strong> {estadio}

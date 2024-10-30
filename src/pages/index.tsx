@@ -2,7 +2,6 @@ import Header from '../components/header'
 import ExtLink from '../components/ext-link'
 import Teams from '../components/teams'
 import sharedStyles from '../styles/shared.module.css'
-import poster from '../../public/poster.jpeg'
 import Image from 'next/image'
 
 export default function Index() {
@@ -20,7 +19,7 @@ export default function Index() {
           }}
         >
           <Image
-            src={poster}
+            src="/poster.jpeg"
             layout="fill" // Para que la imagen llene el contenedor
             objectFit="cover" // Ajusta la imagen para que cubra todo el contenedor
             objectPosition="center" // Centra la imagen
