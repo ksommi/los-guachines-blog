@@ -4,7 +4,6 @@ import Teams from '../../components/teams'
 import sharedStyles from '../../styles/shared.module.css'
 import getAllTeams from '../../lib/notion2/getAllTeams'
 import Image from 'next/image'
-import Spinner from '../components/spinner'
 
 import defaultIcon from '../../../public/generic-shield.png'
 
@@ -16,10 +15,6 @@ export const getStaticProps = async () => {
 }
 
 export default function Index({ teams = [] }) {
-  if (!teams.length) {
-    return <Loading />
-  }
-
   const teamsWithMatches = teams.filter(
     (team) => team.properties.Jugados.formula.number > 0
   )
