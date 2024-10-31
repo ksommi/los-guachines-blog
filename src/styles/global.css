@@ -209,6 +209,7 @@ pre.dark[class*='language-'] {
 
 .team {
   flex: 0 0 33%;
+  flex-direction: column;
   align-items: center;
   display: inline-flex;
   padding: 0 0.5rem 1.5rem;
@@ -222,29 +223,29 @@ pre.dark[class*='language-'] {
   transition: 0.3s;
 }
 
-.team h4 {
-  margin: 0 0 0 0.5rem;
-  font-weight: 700;
-  font-size: 0.95rem;
-  white-space: nowrap;
+.team h3 {
+  text-align: center;
 }
 
 .team img {
   min-width: 24px;
 }
 
-.team.full {
-  flex-direction: column;
-}
-
 @media (max-width: 600px) {
   .team div {
     flex-basis: auto;
+    width: 60%;
     padding-left: 0;
   }
 
-  .team h4 {
+  .team h3 {
     font-size: 0.75rem;
+  }
+}
+
+@media (max-width: 360px) {
+  .team {
+    flex: 0 0 50%;
   }
 }
 

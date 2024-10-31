@@ -31,7 +31,7 @@ export default function Index({ teams = [] }) {
       <div className={sharedStyles.layout}>
         {teams && (
           <>
-            <Teams teams={teams} full={true} />
+            <Teams teams={teams} />
             <div className={sharedStyles.gridResponsive}>
               <div className={sharedStyles.tableContainer}>
                 <h2>Tabla anual</h2>
@@ -70,11 +70,11 @@ export default function Index({ teams = [] }) {
                       const ptsTotal =
                         equipo.properties['Pts Total'].formula.number || 0
                       const ganado =
-                        equipo.properties.Ganado.formula.number || 0
+                        equipo.properties['G Total'].formula.number || 0
                       const perdido =
-                        equipo.properties.Perdido.formula.number || 0
+                        equipo.properties['P Total'].formula.number || 0
                       const empatado =
-                        equipo.properties.Empatado.formula.number || 0
+                        equipo.properties['E Total'].formula.number || 0
                       const diferenciaGoles =
                         equipo.properties['GD Total'].formula.number || 0
 
@@ -86,17 +86,27 @@ export default function Index({ teams = [] }) {
                               style={{ display: 'flex', alignItems: 'center' }}
                             >
                               {icono && (
-                                <Image
-                                  src={icono}
-                                  height={24}
-                                  width={24}
-                                  layout="intrinsic"
-                                  objectFit="contain"
-                                />
+                                <div
+                                  style={{ minWidth: '24px', flexShrink: 0 }}
+                                >
+                                  <Image
+                                    src={icono}
+                                    height={24}
+                                    width={24}
+                                    objectFit="contain"
+                                    alt="Icono"
+                                  />
+                                </div>
                               )}
-                              <strong style={{ marginLeft: '8px' }}>
+                              <span
+                                style={{
+                                  marginLeft: '8px',
+                                  whiteSpace: 'nowrap',
+                                  fontWeight: 500,
+                                }}
+                              >
                                 {nombre}
-                              </strong>
+                              </span>
                             </div>
                           </td>
                           <th>{ptsTotal}</th>
@@ -152,22 +162,32 @@ export default function Index({ teams = [] }) {
                               style={{ display: 'flex', alignItems: 'center' }}
                             >
                               {icono && (
-                                <Image
-                                  src={icono}
-                                  height={24}
-                                  width={24}
-                                  layout="intrinsic"
-                                  objectFit="contain"
-                                />
+                                <div
+                                  style={{ minWidth: '24px', flexShrink: 0 }}
+                                >
+                                  <Image
+                                    src={icono}
+                                    height={24}
+                                    width={24}
+                                    objectFit="contain"
+                                    alt="Icono"
+                                  />
+                                </div>
                               )}
-                              <strong style={{ marginLeft: '8px' }}>
+                              <span
+                                style={{
+                                  marginLeft: '8px',
+                                  whiteSpace: 'nowrap',
+                                  fontWeight: 500,
+                                }}
+                              >
                                 {nombre}
-                              </strong>
+                              </span>
                             </div>
                           </td>
-                          <th>{pts}</th>
+                          <td>{pts}</td>
                           <td>{jugados}</td>
-                          <td>{promedio}</td>
+                          <th>{promedio}</th>
                         </tr>
                       )
                     })}
