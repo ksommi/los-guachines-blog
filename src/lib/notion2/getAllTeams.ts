@@ -17,6 +17,7 @@ export default async function getAllTeams() {
     })
     return response
   } catch (error) {
+    console.log(error)
     console.log('falló')
   }
 }
