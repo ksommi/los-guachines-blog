@@ -1,15 +1,15 @@
 import React from 'react'
-import Header from '../../components/header'
-import getOneTeam from '../../lib/notion2/getOneTeam'
-import getAllTeams from '../../lib/notion2/getAllTeams'
-import { getBlogLink } from '../../lib/blog-helpers'
-import sharedStyles from '../../styles/shared.module.css'
-import teamStyles from '../../styles/team.module.css'
+import Header from '../../../components/header'
+import getOneTeam from '../../../lib/notion2/getOneTeam'
+import getAllTeams from '../../../lib/notion2/getAllTeams'
+import { getBlogLink } from '../../../lib/blog-helpers'
+import sharedStyles from '../../../styles/shared.module.css'
+import teamStyles from '../../../styles/team.module.css'
 import Image from 'next/image'
-import getPlayersClub from '../../lib/notion2/getPlayersClub'
-import defaultProfile from '../../../public/generic-icon.png'
+import getPlayersClub from '../../../lib/notion2/getPlayersClub'
+import defaultProfile from '../../../../public/generic-icon.png'
 
-import getFixtureClub from '../../lib/notion2/getFixtureClub'
+import getFixtureClub from '../../../lib/notion2/getFixtureClub'
 
 export const getStaticProps = async ({ params }) => {
   const { slug } = params
@@ -28,9 +28,9 @@ export async function getStaticPaths() {
   return {
     paths: teams.map((team, index) => {
       const slug = team?.properties.slug?.rich_text[0]?.plain_text
-      console.log(slug)
+      console.log('slug' + slug)
 
-      return `/equipos/${slug}`
+      return `/torneos/equipo/${slug}`
     }),
     fallback: true,
   }

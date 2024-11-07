@@ -1,23 +1,28 @@
-import { API_ENDPOINT, API_TOKEN, TEAM_INDEX_ID } from '../notion2/actions'
+import { API_TOKEN, FIXTURE_INDEX_ID } from './actions'
 const { Client } = require('@notionhq/client')
 
 const notion = new Client({ auth: API_TOKEN })
 
-export default async function getAllTeams() {
-  const databaseId = TEAM_INDEX_ID
+export default async function getFixtureTournament(tournamentId: string) {
+  const databaseId = FIXTURE_INDEX_ID
   try {
     const response = await notion.databases.query({
       database_id: databaseId,
+      filter: {
+        property: 'torneo',
+        relation: {
+          contains: tournamentId,
+        },
+      },
       sorts: [
         {
-          property: 'Pts Total',
+          property: 'Fecha',
           direction: 'descending',
         },
       ],
     })
     return response
   } catch (error) {
-    console.log(error)
     console.log('falló')
   }
 }

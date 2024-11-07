@@ -1,4 +1,4 @@
-import { API_ENDPOINT, API_TOKEN, PLAYERS_INDEX_ID } from '../notion2/actions'
+import { API_TOKEN, PLAYERS_INDEX_ID } from '../notion2/actions'
 const { Client } = require('@notionhq/client')
 
 const notion = new Client({ auth: API_TOKEN })

@@ -4,13 +4,13 @@
     <subtitle>Blog</subtitle>
     <link href="/atom" rel="self" type="application/rss+xml"/>
     <link href="/" />
-    <updated>2024-10-30T02:27:11.621Z</updated>
+    <updated>2024-11-07T03:45:58.936Z</updated>
     <id>My Notion Blog</id>
     <entry>
       <id>/blog/se-suma-un-equipo</id>
       <title>Nuevo equipo</title>
       <link href="/blog/se-suma-un-equipo"/>
-      <updated>2024-09-10T03:00:00.578Z</updated>
+      <updated>2024-09-10T03:00:00.681Z</updated>
       <content type="xhtml">
         <div xmlns="http://www.w3.org/1999/xhtml">
           <p>Deportivo Cifa se suma a la nueva edición de la Liga Los Guachines</p>
@@ -25,7 +25,7 @@
       <id>/blog/volvimos</id>
       <title>Vuelven Los Guachines</title>
       <link href="/blog/volvimos"/>
-      <updated>2024-08-25T01:00:00.578Z</updated>
+      <updated>2024-08-25T01:00:00.682Z</updated>
       <content type="xhtml">
         <div xmlns="http://www.w3.org/1999/xhtml">
           <p>¡Los Guachines regresan!</p><p>La liga internacional de fútbol más esperada vuelve después de 8 años</p>
@@ -40,7 +40,7 @@
       <id>/blog/Osvabordeal-1</id>
       <title>El Reencuentro.</title>
       <link href="/blog/Osvabordeal-1"/>
-      <updated>2024-10-01T03:00:00.578Z</updated>
+      <updated>2024-10-01T03:00:00.682Z</updated>
       <content type="xhtml">
         <div xmlns="http://www.w3.org/1999/xhtml">
           <p>2024 será marcado como el año de los regresos, empezando por Oasis, seguido por Los Piojos, y ellos no podían ser menos...</p>

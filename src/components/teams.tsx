@@ -20,8 +20,6 @@ const Teams = ({ teams }) => (
                 src={icon}
               />
             )}
-
-            <h3>{teamName}</h3>
           </a>
         </Link>
       )
