@@ -13,7 +13,7 @@ interface ChampionCardProps {
 }
 
 const ChampionCard: React.FC<ChampionCardProps> = ({ equipo }) => {
-  if (!equipo) return <div>No se encontró el equipo campeón</div>
+  if (!equipo) return <div>Torneo en curso</div>
 
   return (
     <div className="campeon-card">

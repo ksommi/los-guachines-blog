@@ -13,11 +13,26 @@ import getOneTournament from '../../lib/notion2/getOneTournament'
 import getFixtureTournament from '../../lib/notion2/getFixtureTournament'
 import ChampionCard from '../../components/champion'
 import { GetStaticProps } from 'next'
+import Table from '../../components/tables'
+import Fixture from '../../components/fixture'
 
 interface PageProps {
   tournament: any // tipo de torneo específico si tienes
   teams: Equipo[]
   fixture: Partido[]
+}
+
+type EquipoStats = {
+  icon: string
+  nombre: string
+  puntos: number
+  partidosJugados: number
+  ganados: number
+  empatados: number
+  perdidos: number
+  golesFavor: number
+  golesContra: number
+  diferenciaGoles: number
 }
 
 type Equipo = {
@@ -71,24 +86,102 @@ export async function getStaticPaths() {
   }
 }
 
-const formatText = (text) => {
-  return text.replace(/,/g, ', ')
-}
-
 const RenderTeam = ({ teams, tournament, fixture }) => {
-  //console.log(team)
-  //console.log(players)
+  const stats: Record<string, EquipoStats> = (teams || []).reduce(
+    (acc, team) => {
+      acc[team.id] = {
+        icon: team.icon?.file?.url || '',
+        nombre: team.properties.Nombre.title[0]?.plain_text || '',
+        puntos: 0,
+        partidosJugados: 0,
+        ganados: 0,
+        empatados: 0,
+        perdidos: 0,
+        golesFavor: 0,
+        golesContra: 0,
+        diferenciaGoles: 0,
+      }
+      return acc
+    },
+    {}
+  )
 
-  /* const icono = team?.icon.file?.url || ''
-  const nombre = team?.properties.Nombre.title[0]?.plain_text || ''
-  const jugados = team?.properties.Jugados.formula.number || 0
-  const gfTotal = team?.properties['GF Total'].formula.number || 0
-  const gcTotal = team?.properties['GC Total'].formula.number || 0
-  const ptsTotal = team?.properties['Pts Total'].formula.number || 0
-  const ganado = team?.properties.Ganado.formula.number || 0
-  const perdido = team?.properties.Perdido.formula.number || 0
-  const empatado = team?.properties.Empatado.formula.number || 0
-  const diferenciaGoles = team?.properties['GD Total'].formula.number || 0 */
+  const partidosLiga = (fixture || []).filter(
+    (partido) => partido.properties.Liga?.checkbox === true
+  )
+
+  const partidosEliminatoria = (fixture || []).filter(
+    (partido) => partido.properties.Liga?.checkbox === false
+  )
+
+  partidosLiga.forEach((partido) => {
+    const golesLocal = partido.properties['Goles local']?.number || 0
+    const golesVisitante = partido.properties['Goles visitante']?.number || 0
+    const ganadorId = partido.properties.Ganador?.relation[0]?.id
+    const perdedorId = partido.properties.Perdedor?.relation[0]?.id
+    const empateLocalId = partido.properties['Empate Local']?.relation[0]?.id
+    const empateVisitanteId =
+      partido.properties['Empate Visitante']?.relation[0]?.id
+    const localId = partido.properties.Local.relation[0]?.id
+    const visitanteId = partido.properties.Visitante.relation[0]?.id
+
+    // Actualiza goles a favor y en contra para ambos equipos
+    if (localId && visitanteId) {
+      stats[localId].golesFavor += golesLocal
+      stats[localId].golesContra += golesVisitante
+      stats[visitanteId].golesFavor += golesVisitante
+      stats[visitanteId].golesContra += golesLocal
+    }
+
+    if (ganadorId) {
+      stats[ganadorId].partidosJugados += 1
+      stats[ganadorId].ganados += 1
+      stats[ganadorId].puntos += 3
+    }
+
+    if (perdedorId) {
+      stats[perdedorId].partidosJugados += 1
+      stats[perdedorId].perdidos += 1
+    }
+
+    if (empateLocalId && empateVisitanteId) {
+      stats[empateLocalId].partidosJugados += 1
+      stats[empateVisitanteId].partidosJugados += 1
+      stats[empateLocalId].empatados += 1
+      stats[empateVisitanteId].empatados += 1
+      stats[empateLocalId].puntos += 1
+      stats[empateVisitanteId].puntos += 1
+    }
+  })
+
+  // Calcula la diferencia de goles
+  Object.keys(stats).forEach((teamId) => {
+    stats[teamId].diferenciaGoles =
+      stats[teamId].golesFavor - stats[teamId].golesContra
+  })
+
+  const tablaOrdenada: EquipoStats[] = Object.values(stats)
+    .filter((equipo) => equipo.partidosJugados > 0)
+    .sort((a, b) => {
+      if (b.puntos !== a.puntos) return b.puntos - a.puntos
+      if (b.diferenciaGoles !== a.diferenciaGoles)
+        return b.diferenciaGoles - a.diferenciaGoles
+      return b.golesFavor - a.golesFavor
+    })
+
+  const columns = [
+    { header: '#', accessor: 'posicion' },
+    { header: 'Nombre', accessor: 'nombre' },
+    { header: 'Pts', accessor: 'puntos' },
+    { header: 'PJ', accessor: 'partidosJugados' },
+    { header: 'PG', accessor: 'ganados' },
+    { header: 'PE', accessor: 'empatados' },
+    { header: 'PP', accessor: 'perdidos' },
+    { header: 'GF', accessor: 'golesFavor' },
+    { header: 'GC', accessor: 'golesContra' },
+    { header: 'DG', accessor: 'diferenciaGoles' },
+  ]
+
   const equipoCampeon = tournament
     ? teams.find(
         (equipo) =>
@@ -96,8 +189,7 @@ const RenderTeam = ({ teams, tournament, fixture }) => {
       )
     : null
 
-  // Agrupación de partidos por fecha
-  const partidosPorFecha: Record<string, Partido[]> = (fixture || []).reduce(
+  const partidosPorFechaLiga: Record<string, Partido[]> = partidosLiga.reduce(
     (acc, partido) => {
       const fecha =
         partido.properties.Fecha?.select?.name || 'Fecha desconocida'
@@ -110,6 +202,18 @@ const RenderTeam = ({ teams, tournament, fixture }) => {
     {}
   )
 
+  const partidosPorFechaEliminatoria: Record<
+    string,
+    Partido[]
+  > = partidosEliminatoria.reduce((acc, partido) => {
+    const fecha = partido.properties.Fecha?.select?.name || 'Fecha desconocida'
+    if (!acc[fecha]) {
+      acc[fecha] = []
+    }
+    acc[fecha].push(partido)
+    return acc
+  }, {})
+
   return (
     <div>
       <Header />
@@ -118,122 +222,27 @@ const RenderTeam = ({ teams, tournament, fixture }) => {
           🏆{' '}
           {tournament?.properties?.Nombre.title[0].plain_text || 'Cargando...'}
         </h1>
+
         {equipoCampeon && <ChampionCard equipo={equipoCampeon} />}
-        {fixture && (
-          <div className="fixture-table-styled">
-            {Object.entries(partidosPorFecha).map(
-              ([fecha, partidos], index) => (
-                <div key={index} className="fecha-group">
-                  {/* Título de la Fecha */}
-                  <div className="fecha-titulo">{fecha}</div>
 
-                  <table className="fixture-table">
-                    <tbody>
-                      {partidos.map((partido, index) => {
-                        // Obtener IDs de equipos
-                        const localId = partido.properties.Local.relation[0]?.id
-                        const visitanteId =
-                          partido.properties.Visitante.relation[0]?.id
-
-                        // Buscar equipos en el array `equipos`
-                        const equipoLocal = teams.find(
-                          (equipo) => equipo.id === localId
-                        )
-                        const equipoVisitante = teams.find(
-                          (equipo) => equipo.id === visitanteId
-                        )
-
-                        const resumenGolesLocal = partido.properties[
-                          'Resumen Goles Local'
-                        ].formula.string
-                          ? formatText(
-                              partido.properties['Resumen Goles Local'].formula
-                                .string
-                            )
-                          : ''
-                        const resumenGolesVisitante = partido.properties[
-                          'Resumen Goles Visitante'
-                        ].formula.string
-                          ? formatText(
-                              partido.properties['Resumen Goles Visitante']
-                                .formula.string
-                            )
-                          : ''
-
-                        return (
-                          <React.Fragment key={index}>
-                            <tr className="match-row">
-                              <td className="fixture-icon-team">
-                                <Image
-                                  src={
-                                    equipoLocal?.icon?.file?.url ||
-                                    'default_local_icon.png'
-                                  }
-                                  width={30}
-                                  height={30}
-                                  alt="Local team logo"
-                                />
-                              </td>
-                              <td className="fixture-t1">
-                                <span className="datoequipo">
-                                  {equipoLocal
-                                    ? equipoLocal.properties.Nombre.title[0]
-                                        ?.plain_text
-                                    : 'Equipo desconocido'}
-                                </span>
-                              </td>
-                              <td className="fixture-goles">
-                                <div className="rojas1"></div>
-                                <span>
-                                  {partido.properties['Goles local'].number ??
-                                    0}
-                                </span>
-                              </td>
-                              <td className="fixture-goles">
-                                <span>
-                                  {partido.properties['Goles visitante']
-                                    .number ?? 0}
-                                </span>
-                                <div className="rojas2"></div>
-                              </td>
-                              <td className="fixture-t2">
-                                <span className="datoequipo">
-                                  {equipoVisitante
-                                    ? equipoVisitante.properties.Nombre.title[0]
-                                        ?.plain_text
-                                    : 'Equipo desconocido'}
-                                </span>
-                              </td>
-                              <td className="fixture-icon-team">
-                                <Image
-                                  src={
-                                    equipoVisitante?.icon?.file?.url ||
-                                    'default_visitante_icon.png'
-                                  }
-                                  width={30}
-                                  height={30}
-                                  alt="Visitante team logo"
-                                />
-                              </td>
-                            </tr>
-                            <tr className="goles-row">
-                              <td colSpan={3} className="goles-local">
-                                <i>{resumenGolesLocal}</i>
-                              </td>
-                              <td colSpan={3} className="goles-visitante">
-                                <i>{resumenGolesVisitante}</i>
-                              </td>
-                            </tr>
-                          </React.Fragment>
-                        )
-                      })}
-                    </tbody>
-                  </table>
-                </div>
-              )
-            )}
-          </div>
-        )}
+        <div className="fixture-container">
+          {fixture && (
+            <Fixture
+              partidosPorFecha={partidosPorFechaEliminatoria}
+              teams={teams}
+            />
+          )}
+          {teams && (
+            <Table
+              title="Fase de grupos"
+              columns={columns}
+              data={tablaOrdenada}
+            />
+          )}
+          {fixture && (
+            <Fixture partidosPorFecha={partidosPorFechaLiga} teams={teams} />
+          )}
+        </div>
       </div>
     </div>
   )

@@ -522,10 +522,14 @@ footer span a {
   color: var(--accents-2);
 }
 
-.fixture-table-styled {
-  width: 100%;
+.fixture-container {
   max-width: 900px;
   margin: 0 auto;
+}
+
+.fixture-table-styled {
+  width: 100%;
+  margin: 2rem auto;
   padding: 20px;
   background-color: var(--bg);
 }
@@ -653,4 +657,22 @@ footer span a {
   font-weight: bold;
   color: var(--fg);
   margin: 0;
+}
+
+.tabla-posiciones {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.tabla-posiciones th,
+.tabla-posiciones td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: center;
+}
+
+.tabla-posiciones th {
+  background-color: #f4f4f4;
+  font-weight: bold;
 }

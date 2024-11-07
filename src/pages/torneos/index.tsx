@@ -35,10 +35,10 @@ export default function Index({ teams = [], tournaments = [] }) {
     { header: '#', accessor: 'index' },
     { header: 'Equipo', accessor: 'Nombre' },
     { header: 'Pts', accessor: 'Pts Total', isBold: true },
-    { header: 'J', accessor: 'Jugados' },
-    { header: 'G', accessor: 'G Total' },
-    { header: 'E', accessor: 'E Total' },
-    { header: 'P', accessor: 'P Total' },
+    { header: 'PJ', accessor: 'Jugados' },
+    { header: 'PG', accessor: 'G Total' },
+    { header: 'PE', accessor: 'E Total' },
+    { header: 'PP', accessor: 'P Total' },
     { header: 'GF', accessor: 'GF Total' },
     { header: 'GC', accessor: 'GC Total' },
     { header: 'DG', accessor: 'GD Total' },
@@ -48,7 +48,7 @@ export default function Index({ teams = [], tournaments = [] }) {
     { header: '#', accessor: 'index' },
     { header: 'Equipo', accessor: 'Nombre' },
     { header: 'Pts', accessor: 'Pts Torneos Promedio' },
-    { header: 'J', accessor: 'Jug Torneos Promedio' },
+    { header: 'PJ', accessor: 'Jug Torneos Promedio' },
     { header: 'Prom', accessor: 'Promedios', isBold: true },
   ]
 

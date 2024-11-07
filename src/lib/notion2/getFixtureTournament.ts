@@ -1,4 +1,4 @@
-import { API_ENDPOINT, API_TOKEN, FIXTURE_INDEX_ID } from './actions'
+import { API_TOKEN, FIXTURE_INDEX_ID } from './actions'
 const { Client } = require('@notionhq/client')
 
 const notion = new Client({ auth: API_TOKEN })
