@@ -524,6 +524,8 @@ footer span a {
 
 .fixture-table-styled {
   width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
   padding: 20px;
   background-color: var(--bg);
 }
@@ -535,12 +537,12 @@ footer span a {
 .fecha-titulo {
   font-size: 1.2rem;
   font-weight: bold;
-  color: var(--accents-2);
+  color: var(--accents-1);
   margin-bottom: 10px;
   text-align: center;
   padding: 8px;
-  background-color: var(--bg-hover);
-  border-radius: 8px;
+  background-color: var(--bg-darker);
+  border-radius: 0px;
 }
 
 .fixture-table {
@@ -558,17 +560,17 @@ footer span a {
 .match-row td,
 .goles-row td {
   padding: 8px;
-  border: 1px solid #d0d0d0;
+  border: 1px solid var(--bg-light);
 }
 
 .datoequipo {
   display: block;
-  font-weight: bold;
+  font-weight: 500;
 }
 
 .fixture-goles {
   font-size: 1.2rem;
-  font-weight: bold;
+  font-weight: 500;
   width: 40px;
 }
 
@@ -623,7 +625,6 @@ footer span a {
 .campeon-card {
   border: 2px solid var(--bg-muted);
   border-radius: 8px;
-  padding: 16px;
   max-width: 300px;
   text-align: center;
   margin: 1rem auto;
@@ -651,4 +652,5 @@ footer span a {
   font-size: 1.5rem;
   font-weight: bold;
   color: var(--fg);
+  margin: 0;
 }

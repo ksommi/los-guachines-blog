@@ -12,20 +12,19 @@ import getAllTeams from '../../lib/notion2/getAllTeams'
 import getOneTournament from '../../lib/notion2/getOneTournament'
 import getFixtureTournament from '../../lib/notion2/getFixtureTournament'
 import ChampionCard from '../../components/champion'
+import { GetStaticProps } from 'next'
 
-export const getStaticProps = async ({ params }) => {
-  const { id } = params
-  var equipos = await getAllTeams()
-  var torneo = await getOneTournament(id)
-  var partidos = await getFixtureTournament(id)
+interface PageProps {
+  tournament: any // tipo de torneo específico si tienes
+  teams: Equipo[]
+  fixture: Partido[]
+}
 
-  return {
-    props: {
-      teams: equipos.results,
-      tournament: torneo,
-      fixture: partidos.results,
-    },
-    revalidate: 7200,
+type Equipo = {
+  id: string
+  properties: {
+    Nombre: { title: { plain_text: string }[] }
+    icon: { file: { url: string } }
   }
 }
 
@@ -39,6 +38,23 @@ type Partido = {
     'Resumen Goles Local': { formula: { string: string } }
     'Resumen Goles Visitante': { formula: { string: string } }
     Fecha: { select: { name: string } }
+  }
+}
+
+export const getStaticProps: GetStaticProps<PageProps> = async (context) => {
+  const torneoId = context.params?.id as string
+
+  var equipos = await getAllTeams()
+  var torneo = await getOneTournament(torneoId)
+  var partidos = await getFixtureTournament(torneoId)
+
+  return {
+    props: {
+      teams: equipos.results || [],
+      tournament: torneo || null,
+      fixture: partidos.results || [],
+    },
+    revalidate: 7200,
   }
 }
 
@@ -73,14 +89,15 @@ const RenderTeam = ({ teams, tournament, fixture }) => {
   const perdido = team?.properties.Perdido.formula.number || 0
   const empatado = team?.properties.Empatado.formula.number || 0
   const diferenciaGoles = team?.properties['GD Total'].formula.number || 0 */
-  var equipoCampeon
-  if (tournament) {
-    const campeonId = tournament.properties?.Campeón.relation[0]?.id || 0
-    // Buscamos el equipo campeón en la lista de equipos usando su ID
-    equipoCampeon = teams.find((equipo) => equipo.id === campeonId)
-  }
+  const equipoCampeon = tournament
+    ? teams.find(
+        (equipo) =>
+          equipo.id === tournament.properties?.Campeón?.relation[0]?.id
+      )
+    : null
 
-  const partidosPorFecha: Record<string, Partido[]> = fixture.reduce(
+  // Agrupación de partidos por fecha
+  const partidosPorFecha: Record<string, Partido[]> = (fixture || []).reduce(
     (acc, partido) => {
       const fecha =
         partido.properties.Fecha?.select?.name || 'Fecha desconocida'

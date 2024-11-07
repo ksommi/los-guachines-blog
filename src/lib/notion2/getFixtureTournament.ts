@@ -14,6 +14,12 @@ export default async function getFixtureTournament(tournamentId: string) {
           contains: tournamentId,
         },
       },
+      sorts: [
+        {
+          property: 'Fecha',
+          direction: 'descending',
+        },
+      ],
     })
     return response
   } catch (error) {
