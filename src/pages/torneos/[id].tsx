@@ -69,7 +69,7 @@ export const getStaticProps: GetStaticProps<PageProps> = async (context) => {
       tournament: torneo || null,
       fixture: partidos.results || [],
     },
-    revalidate: 7200,
+    revalidate: 30,
   }
 }
 
