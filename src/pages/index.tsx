@@ -11,8 +11,9 @@ export default function Index() {
       <div className={sharedStyles.layout}>
         <div
           style={{
-            width: '500px',
-            height: '500px',
+            width: '100%',
+            maxWidth: '600px',
+            aspectRatio: '1 / 1',
             position: 'relative',
             overflow: 'hidden',
             margin: '0 auto',

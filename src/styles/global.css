@@ -676,3 +676,23 @@ footer span a {
   background-color: #f4f4f4;
   font-weight: bold;
 }
+
+.tableContainer {
+  width: 100%;
+  overflow-x: scroll;
+}
+
+@media (min-width: 768px) {
+  .tableContainer {
+    scrollbar-width: none;
+  }
+  .tableContainer::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@media (max-width: 540px) {
+  .tableContainer {
+    font-size: 0.7rem;
+  }
+}
