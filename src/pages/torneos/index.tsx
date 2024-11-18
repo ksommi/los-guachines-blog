@@ -62,7 +62,7 @@ export default function Index({ teams = [], tournaments = [] }) {
               {tournaments.map((torneo, index) => {
                 const id = torneo.id
                 return (
-                  <Link href={`/torneos/${id}`}>
+                  <Link href={`/torneos/${id}`} key={id}>
                     <a>
                       <div key={index} className="tournament-card">
                         <span className="tournament-icon">🏆</span>

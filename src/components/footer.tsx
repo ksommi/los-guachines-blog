@@ -5,7 +5,7 @@ export default function Footer() {
     <>
       <footer>
         <span>
-          <ExtLink href="https://github.com/ijjk/notion-blog">
+          <ExtLink href="https://github.com/ksommi/los-guachines-blog">
             ver código fuente
           </ExtLink>
         </span>
