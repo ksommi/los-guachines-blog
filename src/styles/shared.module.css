@@ -21,29 +21,8 @@
   grid-template-columns: 1fr;
 }
 
-.tableContainer {
-  width: 100%;
-  overflow-x: scroll;
-}
-
 @media (min-width: 768px) {
   .gridResponsive {
     grid-template-columns: repeat(2, 1fr);
   }
-  .tableContainer {
-    scrollbar-width: none;
-  }
-  .tableContainer::-webkit-scrollbar {
-    display: none;
-  }
-}
-
-@media (max-width: 540px) {
-  .tableContainer {
-    font-size: 0.7rem;
-  }
-
-  /* .tableContainer td strong {
-    white-space: nowrap;
-  } */
 }

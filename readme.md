@@ -1,85 +1,29 @@
-# Notion Blog
+# Los Guachines - Página web
 
-This is an example Next.js project that shows Next.js' upcoming SSG (static-site generation) support using Notion's **private** API for a backend.
+¡Bienvenidos al repositorio de Los Guachines!
 
-**Note**: This example uses the experimental SSG hooks only available in the Next.js canary branch! The APIs used within this example will change over time. Since it is using a private API and experimental features, use at your own risk as these things could change at any moment.
+## Sobre este proyecto
 
-**Live Example hosted on Vercel**: https://notion-blog.vercel.app/
+Este proyecto se basa en el template [Notion Blog](https://github.com/ijjk/notion-blog.git) disponible en la página de Vercel. Este template proporciona un proyecto base con estilos preestablecidos y la capacidad de postear páginas en un blog conectado a Notion.
 
-## Getting Started
+### ¿Qué modificaciones se hicieron?
 
-To view the steps to setup Notion to work with this example view the post at https://notion-blog.vercel.app/blog/my-first-post or follow the steps below.
+1. **Uso de la API de Notion:**  
+   Aunque el template original utilizaba una configuración diferente para conectarse a Notion, analicé su implementación y consideré que era más compleja de lo necesario para mi gusto. Por eso, para las secciones agregadas, implementé mi propia solución utilizando la última versión de la API de Notion para generar todo el contenido nuevo.
 
-## Deploy Your Own
+2. **Nuevas funcionalidades:**
+   - **Torneos y Tablas:** Información completa sobre los torneos en curso, clasificaciones, y resultados.
+   - **Optimización:** Unifiqué datos de torneos y clubes en una sola sección para mejorar el rendimiento y reducir las llamadas a la API.
 
-Deploy your own Notion blog with Vercel.
+### ¿Por qué usar este template?
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https://github.com/ijjk/notion-blog/tree/main&project-name=notion-blog&repository-name=notion-blog)
+La idea inicial era algo mucho más simple: armar un blog para subir las "noticias" de la liga usando Notion como backend. Elegí este template porque me resolvía justo eso, y además venía con estilos predefinidos y listo para usar.  
+Pero una vez que desplegué la página y la vi funcionando, me di cuenta de que se podía hacer mucho más. Así que el proyecto fue cambiando rumbo y creciendo: pasó de ser un simple blog a algo mucho más completo, con seguimiento de torneos, clubes y estadisticas.
 
-or
+## Tecnologías utilizadas
 
-1. Clone this repo `git clone https://github.com/ijjk/notion-blog.git`
-2. Configure project with [`vc`](https://vercel.com/download)
-3. Add your `NOTION_TOKEN` and `BLOG_INDEX_ID` as environment variables in [your project](https://vercel.com/docs/integrations?query=envir#project-level-apis/project-based-environment-variables). See [here](#getting-blog-index-and-token) for how to find these values
-4. Do final deployment with `vc`
+- **Next.js:** Framework base para la aplicación.
+- **Notion API:** Para gestionar y sincronizar el contenido dinámico.
+- **Vercel:** Plataforma de despliegue.
 
-Note: if redeploying with `vc` locally and you haven't made any changes to the application's source and only edited in Notion you will need use `vc -f` to bypass build de-duping
-
-## Creating Your Pages Table
-
-**Note**: this is auto run if a table isn't detected the first time visiting `/blog`
-
-### Using the Pre-Configured Script
-
-1. Create a blank page in Notion
-2. Clone this repo `git clone https://github.com/ijjk/notion-blog.git`
-3. Install dependencies `cd notion-blog && yarn`
-4. Run script to create table `NOTION_TOKEN='token' BLOG_INDEX_ID='new-page-id' node scripts/create-table.js` See [here](#getting-blog-index-and-token) for finding the id for the new page
-
-### Manually Creating the Table
-
-1. Create a blank page in Notion
-2. Create a **inline** table on that page, don't use a full page table as it requires querying differently
-3. Add the below fields to the table
-
-The table should have the following properties:
-
-- `Page`: this the blog post's page
-- `Slug`: this is the blog post's slug relative to `/blog`, it should be a text property
-- `Published`: this filters blog posts in **production**, it should be a checkbox property
-- `Date`: this is when the blog post appears as posted, it should be a date property
-- `Authors`: this is a list of Notion users that wrote the post, it should be a person property
-
-![Example Blog Posts Table](./assets/table-view.png)
-
-## Getting Blog Index and Token
-
-To get your blog index value, open Notion and Navigate to the Notion page with the table you created above. While on this page you should be able to get the page id from either:
-
-- the URL, if the URL of your page is https://www.notion.so/Blog-S5qv1QbUzM1wxm3H3SZRQkupi7XjXTul then your `BLOG_INDEX_ID` is `S5qv1QbU-zM1w-xm3H-3SZR-Qkupi7XjXTul`
-- the `loadPageChunk` request, if you open your developer console and go to the network tab then reload the page you should see a request for `loadPageChunk` and in the request payload you should see a `pageId` and that is your `BLOG_INDEX_ID`
-
-To get your Notion token, open Notion and look for the `token_v2` cookie.
-
-## Creating Blog Posts
-
-1. In Notion click new on the table to add a new row
-2. Fill in the Page name, slug, Date, and Authors
-3. At the top of the content area add the content you want to show as a preview (keep this under 2 paragraphs)
-4. Add a divider block under your preview content
-5. Add the rest of your content under the divider block
-
-## Running Locally
-
-To run the project locally you need to follow steps 1 and 2 of [deploying](#deploy-your-own) and then follow the below steps
-
-1. Install dependencies `yarn`
-2. Expose `NOTION_TOKEN` and `BLOG_INDEX_ID` in your environment `export NOTION_TOKEN='<your-token>'`and `export BLOG_INDEX_ID='<your-blog-index-id>'` or `set NOTION_TOKEN="<your-token>" && set BLOG_INDEX_ID="<your-blog-index-id>"` for Windows
-3. Run next in development mode `yarn dev`
-4. Build and run in production mode `yarn build && yarn start`
-
-## Credits
-
-- Guillermo Rauch [@rauchg](https://twitter.com/rauchg) for the initial idea
-- Shu Ding [@shuding\_](https://twitter.com/shuding_) for the design help
-- Luis Alvarez [@luis_fades](https://twitter.com/luis_fades) for design help and bug catching
+> **Aclaracion:** Este proyecto fue hecho principalmente como práctica y aprendizaje. El objetivo no es solo gestionar la liga, sino también explorar tecnologías como la API de Notion, Next.js y el despliegue en Vercel, aplicándolas a un caso concreto. Cualquier critica sera bien recibida.

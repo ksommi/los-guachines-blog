@@ -11,8 +11,9 @@ export default function Index() {
       <div className={sharedStyles.layout}>
         <div
           style={{
-            width: '500px',
-            height: '500px',
+            width: '100%',
+            maxWidth: '600px',
+            aspectRatio: '1 / 1',
             position: 'relative',
             overflow: 'hidden',
             margin: '0 auto',
@@ -33,21 +34,14 @@ export default function Index() {
 
         <div className="explanation">
           <p>
-            Los Guachines nació en el año 2012, en los alrededores del Huergo,
-            como un proyecto entre amigos que compartían una pasión: el fútbol y
-            el PES. El nombre, que evoca la esencia de aquellos días, surgió de
-            lo que éramos en ese momento, simplemente unos chicos disfrutando de
-            su tiempo libre entre risas y partidos.
+            Los Guachines son una historia que va más allá del fútbol.
             <br />
-            Durante sus primeros años, la liga fue un punto de encuentro para
-            todos los que compartíamos esa misma pasión. La última edición se
-            celebró en noviembre del 2016, dejando tras de sí recuerdos
-            imborrables de amistades y competiciones intensas.
+            Pasaron muchos campeonatos, muchas juntadas y muchas cargadas
+            también, pero lo más importante siempre fueron los pibes.
             <br />
-            Después de un largo descanso de 8 años, en 2024, volvemos a revivir
-            esa magia. La Liga Los Guachines regresa, renovada y con más fuerza
-            que nunca, para reunir a viejos y nuevos amigos en un torneo que
-            promete ser aún más emocionante.
+            Desde esos primeros torneos en 2012 hasta su renacimiento en 2024,
+            la liga evolucionó, pero nunca perdió su esencia. Por lo que, hoy,
+            Los Guachines estan más vivos que nunca.
           </p>
         </div>
       </div>

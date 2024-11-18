@@ -7,7 +7,6 @@ import contactStyles from '../styles/contact.module.css'
 import GitHub from '../components/svgs/github'
 import Twitter from '../components/svgs/twitter'
 import Envelope from '../components/svgs/envelope'
-import LinkedIn from '../components/svgs/linkedin'
 
 const contacts = [
   {
@@ -43,7 +42,7 @@ export default function Contact() {
 
         <h1 style={{ marginTop: 0 }}>Contacto</h1>
 
-        <div className={contactStyles.name}>Kevin Sommi - Developer</div>
+        <div className={contactStyles.name}>Kevin Sommi - Desarrollador</div>
 
         <div className={contactStyles.links}>
           {contacts.map(({ Comp, link, alt }) => {

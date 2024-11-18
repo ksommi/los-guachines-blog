@@ -9,7 +9,7 @@ const Teams = ({ teams }) => (
       const icon = equipo.icon.file?.url || defaultIcon
       const slug = equipo.properties.slug.rich_text[0].text.content
       return (
-        <Link href={`/equipos/${slug}`} key={teamName}>
+        <Link href={`/torneos/equipo/${slug}`} key={teamName}>
           <a className={`team`}>
             {icon && (
               <Image
